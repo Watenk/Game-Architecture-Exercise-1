@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridTile 
+public class GridTile : Tile
 {
-    public Vector2Int Pos { get; private set; }
-    public Vector2Int Size { get; private set; }
-    public GridSprite Sprite { get; private set; }
+    public Vector2Int Pos;
+    public Vector2Int Size;
 
-    public GridTile(Vector2Int pos, Vector2Int size, GridSprite sprite)
+    public GridTile(int id, GameObject sprite, Vector2Int pos, Vector2Int size) : base(id, sprite)
     {
-        Pos = pos; 
+        Pos = pos;
         Size = size;
-        Sprite = sprite;
     }
 }

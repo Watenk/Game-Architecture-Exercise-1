@@ -154,7 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridSize: {x: 10, y: 10}
   TileSize: {x: 1, y: 1}
-  SpritePrefab: {fileID: 8875364220879428405, guid: ce8fede1dd05c1b46bd2b035ab63dd7d, type: 3}
+  gridGenerationSettings: {fileID: 11400000, guid: 358d44dc8e81fc6488c88f71dc69e4b8, type: 2}
+  tileIDs: {fileID: 11400000, guid: d5d90d507a8b4964ab797b7f9982a91d, type: 2}
 --- !u!4 &503782707
 Transform:
   m_ObjectHideFlags: 0
