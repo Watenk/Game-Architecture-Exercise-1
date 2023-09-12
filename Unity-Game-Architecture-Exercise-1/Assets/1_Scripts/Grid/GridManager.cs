@@ -4,81 +4,98 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public GridTile[,] Grid;
+    public Tile[,] Grid;
 
-    public Vector2Int GridSize;
-    public Vector2Int TileSize;
-
+    //Scriptable Object
     [SerializeField]
     private GridGenerationSettings gridGenerationSettings;
     [SerializeField]
-    private TileIDs tileIDs;
+    private Tiles tiles;
 
     void Start()
     {
-        InitializeGrid(GridSize, TileSize);
+        InitializeGrid();
         GenerateMap();
     }
 
-    //Tiles
     ////////////////////////////////////////////////////////////
-    public GridTile GetTile(Vector2Int pos)
+    public Tile GetTile(Vector2Int pos)
     {
-        //Implement out of bounds catcher
+        CheckIfOutOfBounds(pos);
+
         return Grid[pos.x, pos.y];
     }
 
-    public void SetTile(Vector2Int pos, Tile tile)
+    public void SetTile(Vector2Int pos, TileData tileData)
     {
-        //Implement out of bounds catcher
-        Grid[pos.x, pos.y].Pos = pos;
-        Grid[pos.x, pos.y].Id = tile.Id;
-        Destroy(Grid[pos.x, pos.y].Sprite);
-        GameObject instantiatedSprite = Instantiate(tile.Sprite, new Vector3(pos.x, -pos.y, 0), Quaternion.identity);
+        CheckIfOutOfBounds(pos);
+
+        Grid[pos.x, pos.y].TileData.Id = tileData.Id;
+
+        //Replace spriteObject
+        Destroy(Grid[pos.x, pos.y].TileData.SpriteObject);
+        GameObject instantiatedSprite = Instantiate(tileData.SpriteObject, new Vector3(pos.x, -pos.y, 0), Quaternion.identity);
         instantiatedSprite.transform.SetParent(this.transform);
-        Grid[pos.x, pos.y].Sprite = tile.Sprite;
+
+        Grid[pos.x, pos.y].TileData.SpriteObject = instantiatedSprite;
     }
 
-    private void CreateTile(Vector2Int pos, Tile tile)
+    public void CheckIfOutOfBounds(Vector2Int pos)
     {
-        //Implement out of bounds catcher
-        GameObject instantiatedSprite = Instantiate(tile.Sprite, new Vector3(pos.x, -pos.y, 0), Quaternion.identity);
-        instantiatedSprite.transform.SetParent(this.transform);
-        Grid[pos.x, pos.y] = new GridTile(tile.Id, instantiatedSprite, pos, new Vector2Int(TileSize.x, TileSize.y));
+        if (pos.x < 0 || pos.x > gridGenerationSettings.GridSize.x || pos.y < 0 || pos.y > gridGenerationSettings.GridSize.y)
+        {
+            Debug.Log("Out Of Bounds: " + pos.x + ", " + pos.y);
+        }
     }
 
     ////////////////////////////////////////////////////////////
 
-    //Fill the Grid array with GridTiles and instantiate GridSprites
-    private void InitializeGrid(Vector2Int gridSize, Vector2Int tileSize)
+    private void CreateTile(Vector2Int pos, TileData tileData)
     {
-        Grid = new GridTile[gridSize.x, gridSize.y];
+        CheckIfOutOfBounds(pos);
 
-        for (int y = 0; y < gridSize.y; y++)
+        GameObject instantiatedSprite = Instantiate(tileData.SpriteObject, new Vector3(pos.x, -pos.y, 0), Quaternion.identity);
+        instantiatedSprite.transform.SetParent(this.transform);
+
+        Grid[pos.x, pos.y] = new Tile(pos, gridGenerationSettings.TileSize, new TileData(tileData.Id, instantiatedSprite, tileData.Health, tileData.DamageMultiplier));
+    }
+
+    //Fill the Grid array with GridTiles and instantiate GridSprites
+    private void InitializeGrid()
+    {
+        Grid = new Tile[gridGenerationSettings.GridSize.x, gridGenerationSettings.GridSize.y];
+
+        for (int y = 0; y < gridGenerationSettings.GridSize.y; y++)
         {
-            for (int x = 0; x < gridSize.x; x++)
+            for (int x = 0; x < gridGenerationSettings.GridSize.x; x++)
             {
-                CreateTile(new Vector2Int(x, y), tileIDs.Floor);
+                CreateTile(new Vector2Int(x, y), tiles.Floor);
             }
         }
     }
 
     private void GenerateMap()
     {
-        for (int y = 0; y < GridSize.y; y++)
+        for (int y = 0; y < gridGenerationSettings.GridSize.y; y++)
         {
-            for (int x = 0; x < GridSize.x; x++)
+            for (int x = 0; x < gridGenerationSettings.GridSize.x; x++)
             {
                 //Outer Walls
-                if (y == 0 || x == 0 || y == GridSize.y - 1 || x == GridSize.x - 1)
+                if (y == 0 || x == 0 || y == gridGenerationSettings.GridSize.y - 1 || x == gridGenerationSettings.GridSize.x - 1)
                 {
-                    SetTile(new Vector2Int(x, y), tileIDs.Wall);
+                    SetTile(new Vector2Int(x, y), tiles.Wall);
                 }
 
                 //Inner Walls
                 if (Random.Range(1, 100) <= gridGenerationSettings.WallAmount)
                 {
-                    SetTile(new Vector2Int(x, y), tileIDs.Wall);
+                    SetTile(new Vector2Int(x, y), tiles.Wall);
+                }
+
+                //Enemy's
+                if (Random.Range(1, 100) <= gridGenerationSettings.EnemyAmount)
+                {
+
                 }
             }
         }

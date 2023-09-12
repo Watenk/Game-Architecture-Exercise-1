@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Tile
+public class Tile : IDamagable
 {
-    public int Id;
-    public GameObject Sprite;
+    public Vector2Int Pos;
+    public Vector2Int Size;
+    public TileData TileData;
+    public float Health { get; set; }
 
-    public Tile(int id, GameObject sprite)
+    public Tile(Vector2Int pos, Vector2Int size, TileData tileData)
     {
-        Id = id;
-        Sprite = sprite;
+        Pos = pos;
+        Size = size;
+        TileData = tileData;
     }
 
+    public void Die()
+    {
+        //Replace Tile with 
+    }
 }

@@ -3,7 +3,9 @@ guid: 7aaddaebed23476429e7c5d4eecc84e0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gridGenerationSettings: {fileID: 11400000, guid: 358d44dc8e81fc6488c88f71dc69e4b8, type: 2}
+  - tileIDs: {fileID: 11400000, guid: d5d90d507a8b4964ab797b7f9982a91d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
