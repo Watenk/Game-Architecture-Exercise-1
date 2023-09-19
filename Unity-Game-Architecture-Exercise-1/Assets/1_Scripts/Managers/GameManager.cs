@@ -5,16 +5,23 @@ using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameSettings gameSettings;
     private InputManager inputManager;
 
     public void Awake()
     {
+        if (gameSettings == null)
+        {
+            Debug.LogError(this.name + " Is Missing GameSettings Reference");
+        }
+
         inputManager = new InputManager();
     }
 
     public void Start()
     {
-        inputManager.AddKeyCommand(KeyCode.Mouse0, new CameraRayCommand());
+        inputManager.AddKeyCommand(KeyCode.Mouse0, new CameraRayCommand(gameSettings.RayDamage));
     }
 
     public void Update()

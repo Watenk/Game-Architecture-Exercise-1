@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CameraRayCommand : ICommand
 {
+    private float rayDamage;
+
+    public CameraRayCommand(float rayDamage)
+    {
+        this.rayDamage = rayDamage;
+    }
+
     public void Execute()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -14,7 +21,7 @@ public class CameraRayCommand : ICommand
             IDamagable damagable = hit.collider.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                damagable.TakeDamage(10);
+                damagable.TakeDamage(rayDamage);
             }
         }
     }

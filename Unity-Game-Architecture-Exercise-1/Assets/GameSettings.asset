@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c1707da2698e549875be7aa19abc2e, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  GridSize: {x: 100, y: 100}
+  TileSize: {x: 1, y: 1}
+  WallAmount: 50
+  EnemyAmount: 2
+  RayDamage: 10
+  Floor:
+    TilePrefab: {fileID: 8875364220879428405, guid: ce8fede1dd05c1b46bd2b035ab63dd7d, type: 3}
+    MaxHealth: 1000000
+  Wall:
+    TilePrefab: {fileID: 8875364220879428405, guid: b403ec4b36254e54c8682e4b55f3279a, type: 3}
+    MaxHealth: 100

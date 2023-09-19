@@ -2,18 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : IDamagable
+public class Tile : MonoBehaviour, IDamagable
 {
-    public Vector2Int Pos;
-    public Vector2Int Size;
-    public TileSettingsData TileData;
     public float Health { get; set; }
 
-    public Tile(Vector2Int pos, Vector2Int size, TileSettingsData tileData)
+    public Vector2Int Pos 
+    { 
+        get { return Pos; }
+        set 
+        {
+            gameObject.transform.position = new Vector3(value.x, -value.y, 0);
+        }
+    }
+
+    public Vector2Int Size;
+
+    public float MaxHealth;
+
+    public Tile(Vector2Int pos, Vector2Int size, float maxHealth)
     {
         Pos = pos;
         Size = size;
-        TileData = tileData;
+        MaxHealth = maxHealth;
     }
 
     //IDamagable
@@ -29,6 +39,6 @@ public class Tile : IDamagable
 
     public void Die()
     {
-        //Replace Tile with 
+        Debug.Log("Tile Died (Need To Implement)");
     }
 }

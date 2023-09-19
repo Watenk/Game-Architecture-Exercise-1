@@ -1,0 +1,50 @@
+
+// +-  == Dependent
+// <-  == Assotiation
+// <:-  == Inheritance
+
+//Defenitions------------------------------------
+
+//Managers
+[GameManager]
+[GridManager]
+[InputHandler]
+
+//ScriptableObjects
+[TileSettingsData]
+[TileSettings]
+[GridGenerationSettings]
+
+//Interfaces
+[ICommandGameObject]
+[IDamagable]
+
+//Inputs
+[KeyCommand]
+
+//Actorbase
+[ActorBase]
+[Player]
+[Cow]
+[Fly]
+
+//References----------------------------------
+
+//Managers
+[GameManager] -> [InputHandler] 
+[GameManager] -> [GridManager]
+[GridGenerationSettings] <- [GridManager]
+[TileSettings] <- [GridManager]
+
+//ScriptableObjects
+[TileSettingsData] <- [TileSettings]
+
+//Inputs
+[ICommandGameObject] <- [KeyCommand]
+[KeyCommand] <- [InputHandler]
+
+//Actors
+[IDamagable] <:- [ActorBase]
+[ActorBase] <:- [Player]
+[ActorBase] <:- [Cow]
+[ActorBase] <:- [Fly]
