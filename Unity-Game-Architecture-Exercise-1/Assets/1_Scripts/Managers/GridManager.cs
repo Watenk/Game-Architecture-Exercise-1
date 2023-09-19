@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GridGenerationSettings gridGenerationSettings;
     [SerializeField]
-    private Tiles tiles;
+    private TilesSettings tilesSettings;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class GridManager : MonoBehaviour
         return Grid[pos.x, pos.y];
     }
 
-    public void SetTile(Vector2Int pos, TileData tileData)
+    public void SetTile(Vector2Int pos, TileSettingsData tileData)
     {
         CheckIfOutOfBounds(pos);
 
@@ -44,20 +44,20 @@ public class GridManager : MonoBehaviour
     {
         if (pos.x < 0 || pos.x > gridGenerationSettings.GridSize.x || pos.y < 0 || pos.y > gridGenerationSettings.GridSize.y)
         {
-            Debug.Log("Out Of Bounds: " + pos.x + ", " + pos.y);
+            Debug.LogError("Grid Access Out Of Bounds At: " + pos.x + ", " + pos.y);
         }
     }
 
     ////////////////////////////////////////////////////////////
 
-    private void CreateTile(Vector2Int pos, TileData tileData)
+    private void CreateTile(Vector2Int pos, TileSettingsData tileData)
     {
         CheckIfOutOfBounds(pos);
 
         GameObject instantiatedSprite = Instantiate(tileData.SpriteObject, new Vector3(pos.x, -pos.y, 0), Quaternion.identity);
         instantiatedSprite.transform.SetParent(this.transform);
 
-        Grid[pos.x, pos.y] = new Tile(pos, gridGenerationSettings.TileSize, new TileData(tileData.Id, instantiatedSprite, tileData.Health, tileData.DamageMultiplier));
+        Grid[pos.x, pos.y] = new Tile(pos, gridGenerationSettings.TileSize, new TileSettingsData(tileData.Id, instantiatedSprite, tileData.MaxHealth));
     }
 
     //Fill the Grid array with GridTiles and instantiate GridSprites
@@ -69,7 +69,7 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridGenerationSettings.GridSize.x; x++)
             {
-                CreateTile(new Vector2Int(x, y), tiles.Floor);
+                CreateTile(new Vector2Int(x, y), tilesSettings.Floor);
             }
         }
     }
@@ -83,13 +83,13 @@ public class GridManager : MonoBehaviour
                 //Outer Walls
                 if (y == 0 || x == 0 || y == gridGenerationSettings.GridSize.y - 1 || x == gridGenerationSettings.GridSize.x - 1)
                 {
-                    SetTile(new Vector2Int(x, y), tiles.Wall);
+                    SetTile(new Vector2Int(x, y), tilesSettings.Wall);
                 }
 
                 //Inner Walls
                 if (Random.Range(1, 100) <= gridGenerationSettings.WallAmount)
                 {
-                    SetTile(new Vector2Int(x, y), tiles.Wall);
+                    SetTile(new Vector2Int(x, y), tilesSettings.Wall);
                 }
 
                 //Enemy's

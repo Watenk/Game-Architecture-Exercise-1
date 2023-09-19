@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a49e9195753c1594ea9d7faadcc2e861, type: 3}
-  m_Name: TileIDs
+  m_Name: TilesSettings
   m_EditorClassIdentifier: 
   Floor:
     Id: 0
     SpriteObject: {fileID: 8875364220879428405, guid: ce8fede1dd05c1b46bd2b035ab63dd7d, type: 3}
-    Health: 100
-    DamageMultiplier: 0
+    MaxHealth: 10000
   Wall:
     Id: 1
     SpriteObject: {fileID: 8875364220879428405, guid: b403ec4b36254e54c8682e4b55f3279a, type: 3}
-    Health: 100
-    DamageMultiplier: 1
+    MaxHealth: 100

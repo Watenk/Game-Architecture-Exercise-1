@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : ICommand
+public class Cow : ActorBase
 {
-    public void Execute()
+    public Cow(float maxHealth) : base(maxHealth)
     {
-        Debug.Log("Jump");
+
     }
 }

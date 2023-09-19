@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputHandler
+public class InputManager
 {
     private List<KeyCommand> keyCommands = new List<KeyCommand>();
 
@@ -10,10 +10,7 @@ public class InputHandler
     {
         foreach (var currentCommand in keyCommands)
         {
-            if (Input.GetKeyDown(currentCommand.Key))
-            {
-                currentCommand.Command.Execute();
-            }
+            currentCommand.Check();
         }
     }
 
