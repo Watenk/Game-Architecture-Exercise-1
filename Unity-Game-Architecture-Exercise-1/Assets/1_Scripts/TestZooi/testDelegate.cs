@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class testDelegate : MonoBehaviour
 {
-    public delegate void MyDelegate();
+    public delegate void MyDelegate(Vector2Int pos);
     public MyDelegate enemyWave;
 
     public void Start()
@@ -12,15 +12,15 @@ public class testDelegate : MonoBehaviour
         enemyWave += SpawnRed;
         enemyWave += SpawnGreen;
 
-        enemyWave();
+        enemyWave(new Vector2Int(0, 0));
     }
 
-    public void SpawnRed()
+    public void SpawnRed(Vector2Int pos)
     {
         Debug.Log("Red");
     }
 
-    public void SpawnGreen()
+    public void SpawnGreen(Vector2Int pos)
     {
         Debug.Log("Green");
     }

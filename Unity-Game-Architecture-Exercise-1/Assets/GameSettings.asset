@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridSize: {x: 100, y: 100}
   TileSize: {x: 1, y: 1}
-  WallAmount: 50
+  WallAmount: 40
   EnemyAmount: 2
   RayDamage: 10
   Floor:

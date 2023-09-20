@@ -41,6 +41,11 @@ public class GridManager : MonoBehaviour
         CreateTile(pos, tileData);
     }
 
+    public void ResetTile(Vector2Int pos)
+    {
+        SetTile(pos, gameSettings.Floor);  
+    }
+
     public void CheckIfOutOfBounds(Vector2Int pos)
     {
         if (pos.x < 0 || pos.x > gameSettings.GridSize.x || pos.y < 0 || pos.y > gameSettings.GridSize.y)
@@ -79,6 +84,7 @@ public class GridManager : MonoBehaviour
             tile.MaxHealth = tileData.MaxHealth;
             tile.Health = tileData.MaxHealth;
             tile.Size = gameSettings.TileSize;
+            tile.OnDied += ResetTile;
             Grid[pos.x, pos.y] = tile;
         }
         else
