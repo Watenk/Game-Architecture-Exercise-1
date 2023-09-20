@@ -35,9 +35,12 @@ public class GridManager : MonoBehaviour
     public void SetTile(Vector2Int pos, TileData tileData)
     {
         CheckIfOutOfBounds(pos);
+        
+        Tile currentTile = Grid[pos.x, pos.y];
 
         //Replace Tile
-        Destroy(Grid[pos.x, pos.y].gameObject);
+        currentTile.OnDied -= ResetTile;
+        Destroy(currentTile.gameObject);
         CreateTile(pos, tileData);
     }
 
