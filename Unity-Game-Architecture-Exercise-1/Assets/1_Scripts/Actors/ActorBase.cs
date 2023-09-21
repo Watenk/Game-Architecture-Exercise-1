@@ -40,9 +40,9 @@ public abstract class ActorBase : MonoBehaviour, IMovable, IDamagable
 
     //Interfaces
     //IMovable
-    public virtual void Move(Vector2 Direction, float strenght)
+    public virtual void Move(Vector2 Direction)
     {
-        rb.AddForce(Direction * strenght);
+        rb.AddForce(Direction);
     }
 
     //IDamagable

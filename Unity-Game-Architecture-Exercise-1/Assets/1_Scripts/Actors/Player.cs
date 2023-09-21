@@ -19,4 +19,9 @@ public class Player : ActorBase
     {
         Debug.Log("Player Died!!!");
     }
+
+    public override void Move(Vector2 Direction)
+    {
+        rb.AddForce(Direction * 10);
+    }
 }

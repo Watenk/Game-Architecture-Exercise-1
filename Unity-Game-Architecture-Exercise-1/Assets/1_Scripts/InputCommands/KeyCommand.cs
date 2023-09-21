@@ -6,18 +6,34 @@ public class KeyCommand
 {
     public KeyCode key;
     public ICommand command;
+    public bool Down;
 
-    public KeyCommand(KeyCode key, ICommand command)
+    public KeyCommand(KeyCode _key, ICommand _command, bool _down)
     {
-        this.key = key;
-        this.command = command;
+        key = _key;
+        command = _command;
+        Down = _down;
     }
 
-    public void Check()
+    ////////////////////////////////////////////////////
+
+
+    //Probably Inefficient
+    public void CheckKeys()
     {
-        if (Input.GetKeyDown(key))
+        if (Down)
         {
-            command.Execute();
+            if (Input.GetKeyDown(key))
+            {
+                command.Execute();
+            }
+        }
+        else
+        {
+            if (Input.GetKey(key))
+            {
+                command.Execute();
+            }
         }
     }
 }

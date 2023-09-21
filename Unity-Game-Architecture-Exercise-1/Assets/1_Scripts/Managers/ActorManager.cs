@@ -12,7 +12,9 @@ public class ActorManager : MonoBehaviour
 
     //////////////////////////////////////////////////////////////////////
 
-    public void Start()
+    //Is in Awake because some scripts expect to find the player in the Start() Function
+    //Can be fixed with a GameManager
+    public void Awake()
     {
         AddActor(PlayerPrefab, new Vector2(1, 1));
         AddActor(CowPrefab, new Vector2(10, 1));
@@ -23,10 +25,14 @@ public class ActorManager : MonoBehaviour
 
     public void AddActor(GameObject actorPrefab, Vector2 pos)
     {
+        //Add new Actor
         GameObject actorInstance = Instantiate(actorPrefab, new Vector3(pos.x, -pos.y, -1), Quaternion.identity);
+        actorInstance.transform.SetParent(this.transform);
+        actors.Add(actorInstance);
+
+        //Subscribe to OnDied Event
         ActorBase actorBase = actorInstance.GetComponent<ActorBase>();
         actorBase.OnDied += RemoveActor;
-        actors.Add(actorInstance);
     }
 
     public void RemoveActor(GameObject actorInstance)

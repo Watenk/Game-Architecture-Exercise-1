@@ -6,5 +6,5 @@ public interface IMovable
 {
     Rigidbody2D rb { get; set; }
 
-    void Move(Vector2 Direction, float strenght);
+    void Move(Vector2 Direction);
 }

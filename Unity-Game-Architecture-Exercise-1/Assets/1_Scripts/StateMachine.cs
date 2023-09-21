@@ -9,6 +9,8 @@ public class StateMachine
 
     private Dictionary<System.Type, IState> statesDict = new Dictionary<System.Type, IState>();
 
+    /////////////////////////////////////////////////////////////////////
+
     public void AddStates(System.Type startingState, IState[] states)
     {
         foreach (IState state in states)

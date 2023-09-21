@@ -11,6 +11,8 @@ public class ShootCameraRayCommand : ICommand
         rayDamage = _rayDamage;
     }
 
+    /////////////////////////////////////////////////////////
+
     public void Execute()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
