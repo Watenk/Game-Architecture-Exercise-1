@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
     //Scriptable Object
     [SerializeField]
     private GameSettings gameSettings;
+    private ActorManager actorManager;
 
     public void Awake()
     {
@@ -16,6 +17,7 @@ public class GridManager : MonoBehaviour
         {
             Debug.LogError(this.name + " Is Missing GameSettings Reference");
         }
+        actorManager = FindObjectOfType<ActorManager>();
     }
 
     public void Start()
@@ -98,26 +100,42 @@ public class GridManager : MonoBehaviour
 
     private void GenerateMap()
     {
+        Tile playerSpawnTile = GetTile(new Vector2Int(1, 1));
+
         for (int y = 0; y < gameSettings.GridSize.y; y++)
         {
             for (int x = 0; x < gameSettings.GridSize.x; x++)
             {
+                Tile currentTile = GetTile(new Vector2Int(x, y));
+
                 //Outer Walls
                 if (y == 0 || x == 0 || y == gameSettings.GridSize.y - 1 || x == gameSettings.GridSize.x - 1)
                 {
-                    SetTile(new Vector2Int(x, y), gameSettings.Wall);
+                    SetTile(new Vector2Int(x, y), gameSettings.OuterWall);
                 }
 
                 //Inner Walls
-                if (Random.Range(1, 100) <= gameSettings.WallAmount)
+                if (Random.Range(1, 100) <= gameSettings.WallAmount && currentTile != playerSpawnTile 
+                    && x > 0 && y > 0 && x < gameSettings.GridSize.x - 1 && y < gameSettings.GridSize.y - 1)
                 {
                     SetTile(new Vector2Int(x, y), gameSettings.Wall);
                 }
 
                 //Enemy's
-                if (Random.Range(1, 100) <= gameSettings.EnemyAmount)
+                //Spawns enemy's on a floor tile based on gameSettings.enemyAmount in percentage
+                if (currentTile.Id == gameSettings.Floor.Id)
                 {
-
+                    if (Random.Range(1, 100) <= gameSettings.EnemyAmount)
+                    {
+                        if (Random.Range(1, 100) < 50)
+                        {
+                            actorManager.AddActor(actorManager.CowPrefab, new Vector2(x, y));
+                        }
+                        else
+                        {
+                            actorManager.AddActor(actorManager.FlyPrefab, new Vector2(x, y));
+                        }
+                    }
                 }
             }
         }

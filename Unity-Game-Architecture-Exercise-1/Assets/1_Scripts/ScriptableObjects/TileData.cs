@@ -7,10 +7,12 @@ public class TileData
 {
     public GameObject TilePrefab;
     public float MaxHealth;
+    public int Id;
 
-    public TileData(GameObject tilePrefab, float maxHealth)
+    public TileData(GameObject _tilePrefab, float _maxHealth, int _id)
     {
-        TilePrefab = tilePrefab;
-        MaxHealth = maxHealth;
+        TilePrefab = _tilePrefab;
+        MaxHealth = _maxHealth;
+        Id = _id;
     }
 }

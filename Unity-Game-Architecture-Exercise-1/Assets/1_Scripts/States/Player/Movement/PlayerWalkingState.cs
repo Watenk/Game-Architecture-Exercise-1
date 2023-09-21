@@ -13,6 +13,7 @@ public class PlayerWalkingState : IState
 
     public void OnStart()
     {
+        Debug.Log("Player Walking State");
     }
 
     public void OnUpdate()

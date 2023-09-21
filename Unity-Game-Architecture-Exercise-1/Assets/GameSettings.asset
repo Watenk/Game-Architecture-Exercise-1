@@ -17,12 +17,12 @@ MonoBehaviour:
   WallAmount: 40
   EnemyAmount: 2
   RayDamage: 10
-  MaxPlayerHealth: 100
-  MaxCowHealth: 50
-  MaxFlyHealth: 5
   Floor:
     TilePrefab: {fileID: 8875364220879428405, guid: ce8fede1dd05c1b46bd2b035ab63dd7d, type: 3}
     MaxHealth: 1000000
   Wall:
     TilePrefab: {fileID: 8875364220879428405, guid: b403ec4b36254e54c8682e4b55f3279a, type: 3}
     MaxHealth: 100
+  OuterWall:
+    TilePrefab: {fileID: 3249463646842339331, guid: d8ad5c137e97da545b5604e961c3c80f, type: 3}
+    MaxHealth: 1000000

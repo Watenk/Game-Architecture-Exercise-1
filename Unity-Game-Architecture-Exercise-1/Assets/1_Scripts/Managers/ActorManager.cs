@@ -17,8 +17,6 @@ public class ActorManager : MonoBehaviour
     public void Awake()
     {
         AddActor(PlayerPrefab, new Vector2(1, 1));
-        AddActor(CowPrefab, new Vector2(10, 1));
-        AddActor(FlyPrefab, new Vector2(10, 1));
     }
 
     //////////////////////////////////////////////////////////////////////

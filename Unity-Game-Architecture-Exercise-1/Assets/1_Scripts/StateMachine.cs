@@ -23,9 +23,12 @@ public class StateMachine
 
     public void SwitchState(System.Type newState)
     {
-        currentState?.OnExit();
-        currentState = statesDict[newState];
-        currentState?.OnStart();
+        if (currentState != statesDict[newState])
+        {
+            currentState?.OnExit();
+            currentState = statesDict[newState];
+            currentState?.OnStart();
+        }
     }
 
     public void OnUpdate()

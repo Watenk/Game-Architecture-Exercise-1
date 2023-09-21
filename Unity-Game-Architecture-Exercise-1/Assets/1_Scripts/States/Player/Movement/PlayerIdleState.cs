@@ -13,6 +13,7 @@ public class PlayerIdleState : IState
 
     public void OnStart()
     {
+        Debug.Log("Player Idle State");
     }
 
     public void OnUpdate()

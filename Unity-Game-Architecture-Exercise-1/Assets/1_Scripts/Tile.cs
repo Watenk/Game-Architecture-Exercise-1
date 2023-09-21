@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour, IDamagable
             pos = value;
         }
     }
+    public int Id { get; set; }
     public float Health { get; set; }
     public Vector2Int Size;
     public float MaxHealth;

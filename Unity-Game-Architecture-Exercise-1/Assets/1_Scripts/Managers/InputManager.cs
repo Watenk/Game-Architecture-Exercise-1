@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour 
 {
-    public GameObject rayClickParticle;
-
     [SerializeField]
     private GameSettings gameSettings;
     private List<KeyCommand> keyCommands = new List<KeyCommand>();

@@ -17,4 +17,5 @@ public class GameSettings : ScriptableObject
     [Header("TileData")]
     public TileData Floor;
     public TileData Wall;
+    public TileData OuterWall;
 }
