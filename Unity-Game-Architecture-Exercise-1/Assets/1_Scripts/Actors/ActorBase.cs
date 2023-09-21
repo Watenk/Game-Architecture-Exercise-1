@@ -1,25 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
-public abstract class ActorBase : IMovable, IDamagable
+public abstract class ActorBase : MonoBehaviour, IMovable, IDamagable
 {
+    [field: SerializeField]
+    public float MaxHealth { get; set; }
     public float Health { get; set; }
-    public float MaxHealth { get; private set; }
+    public Rigidbody2D rb {  get; set; }
 
-    private Rigidbody2D rb;
-    private StateMachine movementSM;
+    public delegate void ActorDied(GameObject actorInstance);
+    public event ActorDied OnDied;
 
-    public ActorBase(float maxHealth, System.Type startingMovementState, IState[] otherMovementStates)
+    protected StateMachine movementSM;
+
+    public virtual void Start()
     {
-        MaxHealth = maxHealth;
         movementSM = new StateMachine();
-        movementSM.AddStates(startingMovementState, otherMovementStates);
+        if (GetComponent<Rigidbody2D>())
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+        else
+        {
+            Debug.LogError(this.name + " Has No RigidBody2D");
+        }
+        Health = MaxHealth;
     }
 
     //////////////////////////////////////////////////////////////////////////
 
-    public void OnUpdate()
+    public virtual void Update()
     {
         movementSM.OnUpdate();
     }
@@ -28,17 +40,24 @@ public abstract class ActorBase : IMovable, IDamagable
 
     //Interfaces
     //IMovable
-    public void Move(Vector2 Direction, float strenght)
+    public virtual void Move(Vector2 Direction, float strenght)
     {
         rb.AddForce(Direction * strenght);
     }
 
     //IDamagable
-    public void TakeDamage(float damageAmount)
+    public virtual void TakeDamage(float damageAmount)
     {
+        Health -= damageAmount;
+
+        if (Health <= 0)
+        {
+            Die();
+        }
     }
 
-    public void Die()
+    public virtual void Die()
     {
+        OnDied(this.gameObject);
     }
 }

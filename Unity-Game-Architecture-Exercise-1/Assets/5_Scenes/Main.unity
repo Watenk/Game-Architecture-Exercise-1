@@ -258,7 +258,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26ef7577831b304c88a1e9c58655661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettings: {fileID: 11400000, guid: fe8a9e81efc580a40ad7c607c01577c9, type: 2}
+  PlayerPrefab: {fileID: 1419701225485644275, guid: 721e6525ed97b4843aecf38859ff0689, type: 3}
+  CowPrefab: {fileID: 8172760112861666475, guid: dd5b03270b8a8e84294b93a739e77433, type: 3}
+  FlyPrefab: {fileID: 4645599817814871992, guid: 162e021765e126b4ca91bcb360cde8df, type: 3}
 --- !u!1 &1800715067
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,43 +4,36 @@ using UnityEngine;
 
 public class ActorManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameSettings gameSettings;
-    private List<ActorBase> actors = new List<ActorBase>();
+    public GameObject PlayerPrefab;
+    public GameObject CowPrefab;
+    public GameObject FlyPrefab;
+
+    private List<GameObject> actors = new List<GameObject>();
 
     //////////////////////////////////////////////////////////////////////
-
-    public void Awake()
-    {
-        if (gameSettings == null)
-        {
-            Debug.LogError(this.name + " Is Missing GameSettings Reference");
-        }
-    }
 
     public void Start()
     {
-        //Player
-        IState[] playerStates = 
-        {
-            new EnemyIdleState(),
-            new EnemyAttackState(),
-        };
-        AddActor(new Cow(gameSettings.MaxCowHealth, typeof(EnemyIdleState), playerStates));
-    }
-
-    public void Update()
-    {
-        for (int i = 0; i < actors.Count; i++)
-        {
-            actors[i].OnUpdate();
-        }
+        AddActor(PlayerPrefab, new Vector2(1, 1));
+        AddActor(CowPrefab, new Vector2(10, 1));
+        AddActor(FlyPrefab, new Vector2(10, 1));
     }
 
     //////////////////////////////////////////////////////////////////////
 
-    private void AddActor(ActorBase newActor)
+    public void AddActor(GameObject actorPrefab, Vector2 pos)
     {
-        actors.Add(newActor);
+        GameObject actorInstance = Instantiate(actorPrefab, new Vector3(pos.x, -pos.y, -1), Quaternion.identity);
+        ActorBase actorBase = actorInstance.GetComponent<ActorBase>();
+        actorBase.OnDied += RemoveActor;
+        actors.Add(actorInstance);
+    }
+
+    public void RemoveActor(GameObject actorInstance)
+    {
+        actors.Remove(actorInstance);
+        ActorBase actorBase = actorInstance.GetComponent<ActorBase>();
+        actorBase.OnDied -= RemoveActor;
+        Destroy(actorInstance);
     }
 }
