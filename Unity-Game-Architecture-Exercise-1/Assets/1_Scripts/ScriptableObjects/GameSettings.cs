@@ -11,8 +11,13 @@ public class GameSettings : ScriptableObject
     public float WallAmount;
     public float EnemyAmount;
 
-    [Header("Other Settings")]
+    [Header("Player Settings")]
     public float RayDamage;
+    public float MaxPlayerHealth;
+
+    [Header("Enemy Settings")]
+    public float MaxCowHealth;
+    public float MaxFlyHealth;
 
     [Header("TileData")]
     public TileData Floor;

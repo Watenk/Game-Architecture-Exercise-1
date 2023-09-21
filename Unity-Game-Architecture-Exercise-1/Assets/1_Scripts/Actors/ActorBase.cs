@@ -2,29 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActorBase : MonoBehaviour, IMovable, IDamagable
+public abstract class ActorBase : IMovable, IDamagable
 {
     public float Health { get; set; }
     public float MaxHealth { get; private set; }
 
     private Rigidbody2D rb;
+    private StateMachine movementSM;
 
-    public ActorBase(float maxHealth)
+    public ActorBase(float maxHealth, System.Type startingMovementState, IState[] otherMovementStates)
     {
         MaxHealth = maxHealth;
+        movementSM = new StateMachine();
+        movementSM.AddStates(startingMovementState, otherMovementStates);
     }
 
-    public void Awake()
+    //////////////////////////////////////////////////////////////////////////
+
+    public void OnUpdate()
     {
-        if (GetComponent<Rigidbody2D>())
-        {
-            rb = GetComponent<Rigidbody2D>();
-        }
-        else
-        {
-            Debug.LogError(this.name + " Has no RigidBody2D");
-        }
+        movementSM.OnUpdate();
     }
+
+    //////////////////////////////////////////////////////////////////////////
 
     //Interfaces
     //IMovable

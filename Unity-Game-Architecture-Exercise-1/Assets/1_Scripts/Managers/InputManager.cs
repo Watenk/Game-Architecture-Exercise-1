@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
             Debug.LogError(this.name + " Is Missing GameSettings Reference");
         }
 
-        AddKeyCommand(KeyCode.Mouse0, new CameraRayCommand(gameSettings.RayDamage));
+        AddKeyCommand(KeyCode.Mouse0, new ShootCameraRayCommand(gameSettings.RayDamage));
     }
 
     public void Update()

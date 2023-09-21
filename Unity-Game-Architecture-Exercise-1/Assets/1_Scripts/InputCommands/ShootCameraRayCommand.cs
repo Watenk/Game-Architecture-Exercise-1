@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRayCommand : ICommand
+public class ShootCameraRayCommand : ICommand
 {
     private float rayDamage;
 
-    public CameraRayCommand(float rayDamage)
+    public ShootCameraRayCommand(float _rayDamage)
     {
-        this.rayDamage = rayDamage;
+        rayDamage = _rayDamage;
     }
 
     public void Execute()
@@ -19,10 +19,7 @@ public class CameraRayCommand : ICommand
         if (hit.collider != null)
         {
             IDamagable damagable = hit.collider.GetComponent<IDamagable>();
-            if (damagable != null)
-            {
-                damagable.TakeDamage(rayDamage);
-            }
+            damagable?.TakeDamage(rayDamage);
         }
     }
 }
