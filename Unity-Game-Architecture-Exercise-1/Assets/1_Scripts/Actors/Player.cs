@@ -38,6 +38,6 @@ public class Player : ActorBase
     {
         movementSM.SwitchState(typeof(PlayerWalkingState));
         idleTimer = idleTimerAmount;
-        rb.AddForce(Direction * 10);
+        rb.AddForce(Direction * 1000);
     }
 }

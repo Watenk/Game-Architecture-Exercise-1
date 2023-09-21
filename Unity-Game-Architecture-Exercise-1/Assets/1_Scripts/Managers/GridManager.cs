@@ -89,6 +89,7 @@ public class GridManager : MonoBehaviour
             tile.MaxHealth = tileData.MaxHealth;
             tile.Health = tileData.MaxHealth;
             tile.Size = gameSettings.TileSize;
+            tile.Id = tileData.Id;
             tile.OnDied += ResetTile;
             Grid[pos.x, pos.y] = tile;
         }
@@ -115,11 +116,18 @@ public class GridManager : MonoBehaviour
                 }
 
                 //Inner Walls
-                if (Random.Range(1, 100) <= gameSettings.WallAmount && currentTile != playerSpawnTile 
+                if (Random.Range(1, 100) <= gameSettings.WallAmount && currentTile != playerSpawnTile
                     && x > 0 && y > 0 && x < gameSettings.GridSize.x - 1 && y < gameSettings.GridSize.y - 1)
                 {
                     SetTile(new Vector2Int(x, y), gameSettings.Wall);
                 }
+            }
+        }
+        for (int y = 0; y < gameSettings.GridSize.y; y++)
+        {
+            for (int x = 0; x < gameSettings.GridSize.x; x++)
+            {
+                Tile currentTile = GetTile(new Vector2Int(x, y));
 
                 //Enemy's
                 //Spawns enemy's on a floor tile based on gameSettings.enemyAmount in percentage

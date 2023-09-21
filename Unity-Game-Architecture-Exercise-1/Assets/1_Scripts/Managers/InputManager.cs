@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField]
     private GameSettings gameSettings;
+    private ParticleManager particleManager;
     private List<KeyCommand> keyCommands = new List<KeyCommand>();
 
     ////////////////////////////////////////////////////////////////////
@@ -16,11 +17,12 @@ public class InputManager : MonoBehaviour
         {
             Debug.LogError(this.name + " Is Missing GameSettings Reference");
         }
+        particleManager = FindObjectOfType<ParticleManager>();
     }
 
     public void Start()
     {
-        AddKeyCommand(KeyCode.Mouse0, new ShootCameraRayCommand(gameSettings.RayDamage), true);
+        AddKeyCommand(KeyCode.Mouse0, new ShootCameraRayCommand(gameSettings.RayDamage, particleManager), true);
         AddKeyCommand(KeyCode.W, new WalkUpCommand(FindObjectOfType<Player>()), false);
         AddKeyCommand(KeyCode.A, new WalkLeftCommand(FindObjectOfType<Player>()), false);
         AddKeyCommand(KeyCode.S, new WalkDownCommand(FindObjectOfType<Player>()), false);

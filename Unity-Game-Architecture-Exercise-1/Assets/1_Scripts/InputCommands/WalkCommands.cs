@@ -20,7 +20,7 @@ public class WalkUpCommand : WalkCommand
 
     public override void Execute()
     {
-        player.Move(Vector2.up);
+        player.Move(Vector2.up * Time.deltaTime);
     }
 }
 
@@ -30,7 +30,7 @@ public class WalkDownCommand : WalkCommand
 
     public override void Execute()
     {
-        player.Move(Vector2.down);
+        player.Move(Vector2.down * Time.deltaTime);
     }
 }
 
@@ -40,7 +40,7 @@ public class WalkLeftCommand : WalkCommand
 
     public override void Execute()
     {
-        player.Move(Vector2.left);
+        player.Move(Vector2.left * Time.deltaTime);
     }
 }
 
@@ -50,6 +50,6 @@ public class WalkRightCommand : WalkCommand
 
     public override void Execute()
     {
-        player.Move(Vector2.right);
+        player.Move(Vector2.right * Time.deltaTime);
     }
 }
